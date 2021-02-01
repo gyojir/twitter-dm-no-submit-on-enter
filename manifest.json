@@ -1,0 +1,12 @@
+{
+  "name": "Twitter DM No Submit On Enter",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Twitter DM No Submit On Enter",
+  "content_scripts": [{
+    "matches": ["https://twitter.com/*"],
+    "js": [
+      "content.js"
+    ]
+  }]
+}
