@@ -1,8 +1,11 @@
 {
   "name": "No Submit On Enter for Twitter DM",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Chrome Extension for Twitter DM to prevent submit on Enter",
+  "description": "Prevent sending messages when you press Enter on Twitter DM.",
+  "icons": {
+    "128": "icon128.png"
+  },
   "content_scripts": [{
     "matches": ["https://twitter.com/*"],
     "js": [
