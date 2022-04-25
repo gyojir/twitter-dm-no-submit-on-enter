@@ -1,6 +1,6 @@
 {
   "name": "No Submit On Enter for Twitter DM",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "manifest_version": 2,
   "description": "Prevent sending messages when you press Enter on Twitter DM.",
   "icons": {
