@@ -14,10 +14,7 @@ function check() {
 
     // if it is "Messages" page, get different DOM
     if (isMessagePage()) {
-        elem_array = document.xpath('//*[@id="react-root"]/div/div/div[2]/main');
-        if (elem_array.length > 0) {
-            elem = elem_array[0];
-        }
+        elem = document.querySelector('main');
     }
     else {
         elem = document.querySelector('[data-testid~="DMDrawer"]');
@@ -47,21 +44,5 @@ function isMessagePage() {
     }
     else {
         return false;
-    }
-}
-
-// to get element by xpath
-document.xpath = function (expression) {
-    ret = document.evaluate(expression, document, null, XPathResult.ANY_TYPE, null);
-    switch (ret.resultType) {
-        case 1: return ret.numberValue;
-        case 2: return ret.stringValue;
-        case 3: return ret.booleanValue;
-        case 4:
-        case 5:
-            var a = [];
-            while (e = ret.iterateNext()) { a.push(e); };
-            return a;
-        default: return ret;
     }
 }
