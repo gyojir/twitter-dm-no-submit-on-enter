@@ -38,7 +38,7 @@ function onkeydown(e) {
 // check URL to know if it is "Messages" page or not
 function isMessagePage() {
     var page_url = location.href;
-    const message_url_pattern = /https:\/\/twitter.com\/messages/;
+    const message_url_pattern = /https:\/\/(twitter|x)\.com\/messages/;
     if (message_url_pattern.test(page_url)) {
         return true;
     }
