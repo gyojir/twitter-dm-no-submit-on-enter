@@ -1,7 +1,7 @@
 document.addEventListener('keydown', onKeyDown, true);
 
 function onKeyDown(event) {
-    if (event.key !== 'Enter' || event.shiftKey || event.isComposing) {
+    if (event.key !== 'Enter' || event.shiftKey || event.isComposing || event.keyCode === 229) {
         return;
     }
 
@@ -9,16 +9,15 @@ function onKeyDown(event) {
         return;
     }
 
-    const editor = getDmEditor(event.target);
-    if (editor == null) {
+    // Shadow DOM retargets event.target to its host outside the shadow root.
+    const editor = event.composedPath().map(getDmEditor).find(editor => editor != null);
+    if (editor == null || editor.disabled || editor.readOnly) {
         return;
     }
 
-    event.preventDefault();
+    // Keep the textarea's native newline insertion and undo history.
     event.stopPropagation();
     event.stopImmediatePropagation();
-
-    insertLineBreak(editor);
 }
 
 function getDmEditor(target) {
@@ -30,31 +29,10 @@ function getDmEditor(target) {
     if (editor == null) {
         return null;
     }
-    
+
     return isInsideDmComposer(editor) ? editor : null;
 }
 
 function isInsideDmComposer(element) {
     return element.closest('[data-testid="dm-composer-textarea"]') != null;
-}
-
-function insertLineBreak(editor) {
-    const start = editor.selectionStart ?? editor.value.length;
-    const end = editor.selectionEnd ?? editor.value.length;
-    const nextValue = editor.value.slice(0, start) + '\n' + editor.value.slice(end);
-
-    editor.value = nextValue;
-    editor.selectionStart = start + 1;
-    editor.selectionEnd = start + 1;
-    editor.dispatchEvent(new InputEvent('beforeinput', {
-        bubbles: true,
-        cancelable: true,
-        inputType: 'insertLineBreak',
-        data: null
-    }));
-    editor.dispatchEvent(new InputEvent('input', {
-        bubbles: true,
-        inputType: 'insertLineBreak',
-        data: null
-    }));
 }
